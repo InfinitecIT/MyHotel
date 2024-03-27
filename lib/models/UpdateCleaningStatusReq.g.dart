@@ -10,7 +10,7 @@ UpdateCleaningStatusReq _$UpdateCleaningStatusReqFromJson(
         Map<String, dynamic> json) =>
     UpdateCleaningStatusReq(
       json['RoomId'] as int?,
-      json['CleaningStatus'] as bool?,
+      json['CleaningStatus'] as int?,
     );
 
 Map<String, dynamic> _$UpdateCleaningStatusReqToJson(

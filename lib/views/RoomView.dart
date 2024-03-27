@@ -7,6 +7,8 @@ import 'package:myhotel/models/UpdateMaintenanceStatusResp.dart';
 import 'package:myhotel/utils/Globals.dart';
 import 'package:myhotel/utils/http/HttpAPI.dart';
 
+import '../models/UpdateMaintenanceStatusReq.dart';
+
 class RoomView extends StatefulWidget {
   final int roomIndex;
   const RoomView({required this.roomIndex, super.key});
@@ -16,9 +18,9 @@ class RoomView extends StatefulWidget {
 }
 
 class _RoomViewState extends State<RoomView> {
-  bool _isCleaningOn = false; // Initial switch state for cleaning
+  int _isCleaningOn = 0; // Initial switch state for cleaning
 
-  bool _isMaintenanceOn = false; // Initial switch state for maintenance
+  int _isMaintenanceOn = 0; // Initial switch state for maintenance
   final TextEditingController _notesController = TextEditingController(); // Controller for notes text field
   // String isMaintenanceNotes = 'Enter notes here...';
 
@@ -27,8 +29,8 @@ class _RoomViewState extends State<RoomView> {
     // TODO: implement initState
     super.initState();
     setState(() {
-      _isCleaningOn = Globals.rooms[widget.roomIndex].isCleaning ?? false;
-      _isMaintenanceOn = Globals.rooms[widget.roomIndex].isMaintenance ?? false;
+      _isCleaningOn = Globals.rooms[widget.roomIndex].isCleaning ?? 0;
+      _isMaintenanceOn = Globals.rooms[widget.roomIndex].isMaintenance ?? 0;
     });
   }
 
@@ -40,28 +42,29 @@ class _RoomViewState extends State<RoomView> {
   }
 
   updateRoomStatus(bool isCleaning) async {
-    var jsonIn = UpdateCleaningStatusReq(Globals.rooms[widget.roomIndex].roomId, isCleaning).toJson();
+    int cleaningStatus = isCleaning ? 1 : 0; // Convert bool to int
+    var jsonIn = UpdateCleaningStatusReq(Globals.rooms[widget.roomIndex].roomId, cleaningStatus).toJson();
     var request = await HttpAPI().postNOAUTH(jsonIn, "UpdateRoomCleaningStatus");
     var response = UpdateCleaningStatusResp.fromJson(request?.body);
     if (response.success == 1) {
-      _isCleaningOn = isCleaning;
-      Globals.rooms[widget.roomIndex].isCleaning = isCleaning;
       setState(() {
-        log("Updated Room Cleaning Statass");
+        _isCleaningOn = cleaningStatus;
+        Globals.rooms[widget.roomIndex].isCleaning = cleaningStatus;
+        log("Updated Room Cleaning Status");
       });
     }
   }
 
   updateMaintenanceStatus(bool isMaintenance) async {
-    var jsonIn = UpdateCleaningStatusReq(Globals.rooms[widget.roomIndex].roomId, isMaintenance).toJson();
+    int maintenanceStatus = isMaintenance ? 1 : 0; // Convert bool to int
+    var jsonIn = UpdateMaintenanceStatusReq(Globals.rooms[widget.roomIndex].roomId, maintenanceStatus).toJson();
     var request = await HttpAPI().postNOAUTH(jsonIn, "UpdateMaintenanceStatus");
     var response = UpdateMaintenanceStatusResp.fromJson(request?.body);
     if (response.success == 1) {
-      _isMaintenanceOn = isMaintenance;
-      Globals.rooms[widget.roomIndex].isMaintenance = isMaintenance;
-
       setState(() {
-        log("Updated Room Maintenance Statass");
+        _isMaintenanceOn = maintenanceStatus;
+        Globals.rooms[widget.roomIndex].isMaintenance = maintenanceStatus;
+        log("Updated Room Maintenance Status");
       });
     }
   }
@@ -143,7 +146,7 @@ class _RoomViewState extends State<RoomView> {
                       children: [
                         const Text('Cleaning'),
                         Switch(
-                          value: _isCleaningOn,
+                          value: _isCleaningOn == 1,
                           onChanged: (value) => updateRoomStatus(value),
                         ),
                       ],
@@ -169,7 +172,7 @@ class _RoomViewState extends State<RoomView> {
                         children: [
                           const Text('Maintenance'),
                           Switch(
-                            value: _isMaintenanceOn,
+                            value: _isMaintenanceOn == 1,
                             onChanged: (value) => updateMaintenanceStatus(value),
                           ),
                         ],

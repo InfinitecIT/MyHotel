@@ -7,7 +7,7 @@ class UpdateCleaningStatusReq {
   @JsonKey(name: 'RoomId')
   int? roomId;
   @JsonKey(name: 'CleaningStatus')
-  bool? cleaningStatus;
+  int? cleaningStatus;
 
   UpdateCleaningStatusReq(this.roomId, this.cleaningStatus);
 

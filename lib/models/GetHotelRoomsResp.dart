@@ -36,10 +36,10 @@ class Rooms {
   int? roomNumber;
   @JsonKey(name: 'RoomStatus')
   int? roomStatus;
-  @JsonKey(name: 'Cleaning')
-  bool? isCleaning;
+  @JsonKey(name: 'CleaningStatus')
+  int? isCleaning;
   @JsonKey(name: 'MaintenanceStatus')
-  bool? isMaintenance;
+  int? isMaintenance;
   @JsonKey(name: 'MaintenanceNotes')
   String? maintenanceNotes;
 

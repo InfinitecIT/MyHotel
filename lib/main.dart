@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:myhotel/utils/Globals.dart';
-import 'package:myhotel/views/RoomView.dart';
 import 'package:myhotel/views/RoomsView.dart';
 
 void main() {

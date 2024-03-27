@@ -6,13 +6,10 @@ part of 'GetHotelRoomsResp.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-GetHotelRoomsResp _$GetHotelRoomsRespFromJson(Map<String, dynamic> json) =>
-    GetHotelRoomsResp(
+GetHotelRoomsResp _$GetHotelRoomsRespFromJson(Map<String, dynamic> json) => GetHotelRoomsResp(
       json['Success'] as int?,
       json['Message'] as String?,
-      (json['Rooms'] as List<dynamic>?)
-          ?.map((e) => Rooms.fromJson(e as Map<String, dynamic>))
-          .toList(),
+      (json['Rooms'] as List<dynamic>?)?.map((e) => Rooms.fromJson(e as Map<String, dynamic>)).toList(),
     );
 
 Map<String, dynamic> _$GetHotelRoomsRespToJson(GetHotelRoomsResp instance) {

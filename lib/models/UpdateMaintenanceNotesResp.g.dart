@@ -6,12 +6,15 @@ part of 'UpdateMaintenanceNotesResp.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-UpdateMaintenanceNotesResp _$UpdateMaintenanceNotesRespFromJson(Map<String, dynamic> json) => UpdateMaintenanceNotesResp(
+UpdateMaintenanceNotesResp _$UpdateMaintenanceNotesRespFromJson(
+        Map<String, dynamic> json) =>
+    UpdateMaintenanceNotesResp(
       json['Success'] as int?,
       json['Message'] as String?,
     );
 
-Map<String, dynamic> _$UpdateMaintenanceNotesRespToJson(UpdateMaintenanceNotesResp instance) {
+Map<String, dynamic> _$UpdateMaintenanceNotesRespToJson(
+    UpdateMaintenanceNotesResp instance) {
   final val = <String, dynamic>{};
 
   void writeNotNull(String key, dynamic value) {

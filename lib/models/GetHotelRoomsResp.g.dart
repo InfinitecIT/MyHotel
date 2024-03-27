@@ -36,7 +36,7 @@ Rooms _$RoomsFromJson(Map<String, dynamic> json) => Rooms(
       json['RoomStatus'] as int?,
       json['Cleaning'] as bool?,
     )
-      ..isMaintenance = json['MaintenanceStatus'] as int?
+      ..isMaintenance = json['MaintenanceStatus'] as bool?
       ..maintenanceNotes = json['MaintenanceNotes'] as String?;
 
 Map<String, dynamic> _$RoomsToJson(Rooms instance) {

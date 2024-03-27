@@ -3,14 +3,13 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:myhotel/models/UpdateCleaningStatusReq.dart';
 import 'package:myhotel/models/UpdateCleaningStatusResp.dart';
-import 'package:myhotel/models/UpdateMaintenanceStatusReq.dart';
 import 'package:myhotel/models/UpdateMaintenanceStatusResp.dart';
 import 'package:myhotel/utils/Globals.dart';
 import 'package:myhotel/utils/http/HttpAPI.dart';
 
 class RoomView extends StatefulWidget {
   final int roomIndex;
-  RoomView({required this.roomIndex, Key? key}) : super(key: key);
+  const RoomView({required this.roomIndex, super.key});
 
   @override
   _RoomViewState createState() => _RoomViewState();
@@ -20,8 +19,18 @@ class _RoomViewState extends State<RoomView> {
   bool _isCleaningOn = false; // Initial switch state for cleaning
 
   bool _isMaintenanceOn = false; // Initial switch state for maintenance
-  TextEditingController _notesController = TextEditingController(); // Controller for notes text field
+  final TextEditingController _notesController = TextEditingController(); // Controller for notes text field
   // String isMaintenanceNotes = 'Enter notes here...';
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    setState(() {
+      _isCleaningOn = Globals.rooms[widget.roomIndex].isCleaning ?? false;
+      _isMaintenanceOn = Globals.rooms[widget.roomIndex].isMaintenance ?? false;
+    });
+  }
 
   @override
   void dispose() {
@@ -36,6 +45,7 @@ class _RoomViewState extends State<RoomView> {
     var response = UpdateCleaningStatusResp.fromJson(request?.body);
     if (response.success == 1) {
       _isCleaningOn = isCleaning;
+      Globals.rooms[widget.roomIndex].isCleaning = isCleaning;
       setState(() {
         log("Updated Room Cleaning Statass");
       });
@@ -48,6 +58,8 @@ class _RoomViewState extends State<RoomView> {
     var response = UpdateMaintenanceStatusResp.fromJson(request?.body);
     if (response.success == 1) {
       _isMaintenanceOn = isMaintenance;
+      Globals.rooms[widget.roomIndex].isMaintenance = isMaintenance;
+
       setState(() {
         log("Updated Room Maintenance Statass");
       });
@@ -98,15 +110,15 @@ class _RoomViewState extends State<RoomView> {
                   padding: const EdgeInsets.only(top: 10, left: 5, bottom: 1),
                   child: Text(
                     "Room ${Globals.rooms[widget.roomIndex].roomNumber}", // Access roomIndex through widget
-                    style: TextStyle(fontSize: 30),
+                    style: const TextStyle(fontSize: 30),
                   ),
                 ),
               ],
             )),
       ),
       body: Container(
-        padding: EdgeInsets.all(5),
-        color: Color.fromARGB(255, 95, 157, 207),
+        padding: const EdgeInsets.all(5),
+        color: const Color.fromARGB(255, 95, 157, 207),
         height: size.height,
         width: size.width,
         child: Padding(
@@ -116,8 +128,8 @@ class _RoomViewState extends State<RoomView> {
             children: [
               // Container for the Cleaning On/Off slider
               Container(
-                padding: EdgeInsets.all(10),
-                margin: EdgeInsets.only(left: 8, right: 8, bottom: 2),
+                padding: const EdgeInsets.all(10),
+                margin: const EdgeInsets.only(left: 8, right: 8, bottom: 2),
                 decoration: BoxDecoration(
                   color: Colors.white,
                   borderRadius: BorderRadius.circular(5), // Apply border radius
@@ -129,7 +141,7 @@ class _RoomViewState extends State<RoomView> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text('Cleaning'),
+                        const Text('Cleaning'),
                         Switch(
                           value: _isCleaningOn,
                           onChanged: (value) => updateRoomStatus(value),
@@ -141,8 +153,8 @@ class _RoomViewState extends State<RoomView> {
               ),
               // Container for the Maintenance On/Off slider
               Container(
-                padding: EdgeInsets.all(10),
-                margin: EdgeInsets.all(8),
+                padding: const EdgeInsets.all(10),
+                margin: const EdgeInsets.all(8),
                 decoration: BoxDecoration(
                   color: Colors.white,
                   borderRadius: BorderRadius.circular(5), // Apply border radius
@@ -155,7 +167,7 @@ class _RoomViewState extends State<RoomView> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Text('Maintenance'),
+                          const Text('Maintenance'),
                           Switch(
                             value: _isMaintenanceOn,
                             onChanged: (value) => updateMaintenanceStatus(value),
@@ -169,20 +181,20 @@ class _RoomViewState extends State<RoomView> {
                           maxLines: 4,
                           decoration: InputDecoration(
                             hintText: 'Enter notes here...',
-                            hintStyle: TextStyle(fontSize: 14),
+                            hintStyle: const TextStyle(fontSize: 14),
                             border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(5.0),
                             ),
                             // Optionally reduce the TextField's border to match the container's style more closely
                             enabledBorder: OutlineInputBorder(
-                              borderSide: BorderSide(color: Colors.grey, width: 0.5),
+                              borderSide: const BorderSide(color: Colors.grey, width: 0.5),
                               borderRadius: BorderRadius.circular(5.0),
                             ),
                             focusedBorder: OutlineInputBorder(
-                              borderSide: BorderSide(color: Colors.blue, width: 1.5),
+                              borderSide: const BorderSide(color: Colors.blue, width: 1.5),
                               borderRadius: BorderRadius.circular(5.0),
                             ),
-                            contentPadding: EdgeInsets.only(left: 10, top: 10, bottom: 10),
+                            contentPadding: const EdgeInsets.only(left: 10, top: 10, bottom: 10),
                           ),
                         ),
                       ),
@@ -190,7 +202,7 @@ class _RoomViewState extends State<RoomView> {
                   ),
                 ),
               ),
-              SizedBox(height: 20), // Provides spacing before the button
+              const SizedBox(height: 20), // Provides spacing before the button
               // ElevatedButton for "Assign Guest"
               Padding(
                 padding: const EdgeInsets.all(8.0),

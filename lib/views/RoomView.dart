@@ -143,9 +143,9 @@ class _RoomViewState extends State<RoomView> {
                         borderRadius: BorderRadius.circular(5),
                         border: Border.all(color: Colors.black, width: 1),
                       ),
-                      child: Column(
+                      child: const Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
-                        children: const [
+                        children: [
                           Text('Room Details', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
                           SizedBox(height: 8),
                           Text('Guest Details', style: TextStyle(fontSize: 16)),
@@ -225,7 +225,7 @@ class _RoomViewState extends State<RoomView> {
                                 ),
                               ),
                             ),
-                            SizedBox(
+                            const SizedBox(
                               width: 8,
                               height: 8,
                             ), // Space between text field and button

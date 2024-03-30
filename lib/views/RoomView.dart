@@ -119,109 +119,158 @@ class _RoomViewState extends State<RoomView> {
               ],
             )),
       ),
-      body: Container(
-        padding: const EdgeInsets.all(5),
-        color: const Color.fromARGB(255, 95, 157, 207),
-        height: size.height,
-        width: size.width,
-        child: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: [
-              // Container for the Cleaning On/Off slider
-              Container(
-                padding: const EdgeInsets.all(10),
-                margin: const EdgeInsets.only(left: 8, right: 8, bottom: 2),
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(5), // Apply border radius
-                  border: Border.all(color: Colors.black, width: 1), // Add a black outline
-                ),
-                child: Padding(
-                  padding: const EdgeInsets.only(left: 10, right: 10),
-                  child: Container(
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        const Text('Cleaning'),
-                        Switch(
-                          value: _isCleaningOn == 1,
-                          onChanged: (value) => updateRoomStatus(value),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              ),
-              // Container for the Maintenance On/Off slider
-              Container(
-                padding: const EdgeInsets.all(10),
-                margin: const EdgeInsets.all(8),
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(5), // Apply border radius
-                  border: Border.all(color: Colors.black, width: 1), // Add a black outline
-                ),
-                child: Padding(
-                  padding: const EdgeInsets.all(10.0),
-                  child: Column(
-                    children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          const Text('Maintenance'),
-                          Switch(
-                            value: _isMaintenanceOn == 1,
-                            onChanged: (value) => updateMaintenanceStatus(value),
-                          ),
+      body: Stack(
+        // Use Stack to overlay the button over the SingleChildScrollView
+        children: [
+          SingleChildScrollView(
+            // Makes the layout scrollable
+            child: Container(
+              padding: const EdgeInsets.all(5),
+              height: size.height, // Ensure the container fills the screen vertically
+              width: size.width, // Ensure the container fills the screen horizontally
+              color: const Color.fromARGB(255, 95, 157, 207),
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start, // Align items to the start
+                  children: [
+                    Container(
+                      // New container for Room and Guest Details
+                      padding: const EdgeInsets.all(10),
+                      margin: const EdgeInsets.only(bottom: 8),
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(5),
+                        border: Border.all(color: Colors.black, width: 1),
+                      ),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: const [
+                          Text('Room Details', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+                          SizedBox(height: 8),
+                          Text('Guest Details', style: TextStyle(fontSize: 16)),
+                          // Add more details as needed
                         ],
                       ),
-                      Padding(
-                        padding: const EdgeInsets.only(top: 8.0),
-                        child: TextField(
-                          controller: _notesController,
-                          maxLines: 4,
-                          decoration: InputDecoration(
-                            hintText: 'Enter notes here...',
-                            hintStyle: const TextStyle(fontSize: 14),
-                            border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(5.0),
-                            ),
-                            // Optionally reduce the TextField's border to match the container's style more closely
-                            enabledBorder: OutlineInputBorder(
-                              borderSide: const BorderSide(color: Colors.grey, width: 0.5),
-                              borderRadius: BorderRadius.circular(5.0),
-                            ),
-                            focusedBorder: OutlineInputBorder(
-                              borderSide: const BorderSide(color: Colors.blue, width: 1.5),
-                              borderRadius: BorderRadius.circular(5.0),
-                            ),
-                            contentPadding: const EdgeInsets.only(left: 10, top: 10, bottom: 10),
+                    ),
+                    // Container for the Cleaning On/Off slider
+                    Container(
+                      padding: const EdgeInsets.all(10),
+                      margin: const EdgeInsets.only(left: 8, right: 8, bottom: 2),
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(5), // Apply border radius
+                        border: Border.all(color: Colors.black, width: 1), // Add a black outline
+                      ),
+                      child: Padding(
+                        padding: const EdgeInsets.only(left: 10, right: 10),
+                        child: Container(
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              const Text('Cleaning'),
+                              Switch(
+                                value: _isCleaningOn == 1,
+                                onChanged: (value) => updateRoomStatus(value),
+                              ),
+                            ],
                           ),
                         ),
                       ),
-                    ],
-                  ),
-                ),
-              ),
-              const SizedBox(height: 20), // Provides spacing before the button
-              // ElevatedButton for "Assign Guest"
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: ElevatedButton(
-                  onPressed: () {},
-                  style: ElevatedButton.styleFrom(
-                    minimumSize: Size(size.width, 60),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10),
                     ),
-                  ),
-                  child: const Text('Assign Guest'),
+                    // Container for the Maintenance On/Off slider
+                    Container(
+                      padding: const EdgeInsets.all(10),
+                      margin: const EdgeInsets.all(8),
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(5), // Apply border radius
+                        border: Border.all(color: Colors.black, width: 1), // Add a black outline
+                      ),
+                      child: Padding(
+                        padding: const EdgeInsets.all(10.0),
+                        child: Column(
+                          children: [
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                const Text('Maintenance'),
+                                Switch(
+                                  value: _isMaintenanceOn == 1,
+                                  onChanged: (value) => updateMaintenanceStatus(value),
+                                ),
+                              ],
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.only(top: 8.0),
+                              child: TextField(
+                                controller: _notesController,
+                                maxLines: 4,
+                                decoration: InputDecoration(
+                                  hintText: 'Enter notes here...',
+                                  hintStyle: const TextStyle(fontSize: 14),
+                                  border: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(5.0),
+                                  ),
+                                  // Optionally reduce the TextField's border to match the container's style more closely
+                                  enabledBorder: OutlineInputBorder(
+                                    borderSide: const BorderSide(color: Colors.grey, width: 0.5),
+                                    borderRadius: BorderRadius.circular(5.0),
+                                  ),
+                                  focusedBorder: OutlineInputBorder(
+                                    borderSide: const BorderSide(color: Colors.blue, width: 1.5),
+                                    borderRadius: BorderRadius.circular(5.0),
+                                  ),
+                                  contentPadding: const EdgeInsets.only(left: 10, top: 10, bottom: 10),
+                                ),
+                              ),
+                            ),
+                            SizedBox(
+                              width: 8,
+                              height: 8,
+                            ), // Space between text field and button
+                            Padding(
+                              padding: const EdgeInsets.only(top: 8.0),
+                              child: Align(
+                                alignment: Alignment.centerLeft,
+                                child: ElevatedButton(
+                                  onPressed: () {
+                                    // Logic to update notes
+                                  },
+                                  style: ElevatedButton.styleFrom(
+                                    // foregroundColor: Colors.white,
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(10),
+                                    ),
+                                    // backgroundColor: Colors.blue, // Text color
+                                  ),
+                                  child: const Text('Update Notes'),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
               ),
-            ],
+            ),
           ),
+        ],
+      ),
+      bottomNavigationBar: Container(
+        color: const Color.fromARGB(255, 95, 157, 207), // Set the background color of the container
+        padding: const EdgeInsets.all(8.0),
+        child: ElevatedButton(
+          onPressed: () {},
+          style: ElevatedButton.styleFrom(
+            minimumSize: Size(size.width - 16, 60), // Adjust the size as needed
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(10),
+            ),
+          ),
+          child: const Text('Assign Guest'),
         ),
       ),
     );

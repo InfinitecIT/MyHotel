@@ -29,8 +29,8 @@ class _RoomViewState extends State<RoomView> {
     // TODO: implement initState
     super.initState();
     setState(() {
-      _isCleaningOn = Globals.rooms[widget.roomIndex].isCleaning ?? 0;
-      _isMaintenanceOn = Globals.rooms[widget.roomIndex].isMaintenance ?? 0;
+      _isCleaningOn = Globals.rooms[widget.roomIndex].cleaningStatus ?? 0;
+      _isMaintenanceOn = Globals.rooms[widget.roomIndex].maintenanceStatus ?? 0;
     });
   }
 
@@ -49,7 +49,7 @@ class _RoomViewState extends State<RoomView> {
     if (response.success == 1) {
       setState(() {
         _isCleaningOn = cleaningStatus;
-        Globals.rooms[widget.roomIndex].isCleaning = cleaningStatus;
+        Globals.rooms[widget.roomIndex].cleaningStatus = cleaningStatus;
         log("Updated Room Cleaning Status");
       });
     }
@@ -63,7 +63,7 @@ class _RoomViewState extends State<RoomView> {
     if (response.success == 1) {
       setState(() {
         _isMaintenanceOn = maintenanceStatus;
-        Globals.rooms[widget.roomIndex].isMaintenance = maintenanceStatus;
+        Globals.rooms[widget.roomIndex].maintenanceStatus = maintenanceStatus;
         log("Updated Room Maintenance Status");
       });
     }
@@ -143,12 +143,13 @@ class _RoomViewState extends State<RoomView> {
                         borderRadius: BorderRadius.circular(5),
                         border: Border.all(color: Colors.black, width: 1),
                       ),
-                      child: const Column(
+                      child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text('Room Details', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
                           SizedBox(height: 8),
-                          Text('Guest Details', style: TextStyle(fontSize: 16)),
+                          Text('BEDS: ${Globals.rooms[widget.roomIndex].beds} | BEDROOMS: ${Globals.rooms[widget.roomIndex].rooms} | SLEEPS: ${Globals.rooms[widget.roomIndex].sleeps}',
+                              style: TextStyle(fontSize: 16)),
                           // Add more details as needed
                         ],
                       ),

@@ -6,10 +6,13 @@ part of 'GetHotelRoomsResp.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-GetHotelRoomsResp _$GetHotelRoomsRespFromJson(Map<String, dynamic> json) => GetHotelRoomsResp(
+GetHotelRoomsResp _$GetHotelRoomsRespFromJson(Map<String, dynamic> json) =>
+    GetHotelRoomsResp(
       json['Success'] as int?,
       json['Message'] as String?,
-      (json['Rooms'] as List<dynamic>?)?.map((e) => Rooms.fromJson(e as Map<String, dynamic>)).toList(),
+      (json['Rooms'] as List<dynamic>?)
+          ?.map((e) => Rooms.fromJson(e as Map<String, dynamic>))
+          .toList(),
     );
 
 Map<String, dynamic> _$GetHotelRoomsRespToJson(GetHotelRoomsResp instance) {
@@ -32,9 +35,11 @@ Rooms _$RoomsFromJson(Map<String, dynamic> json) => Rooms(
       json['RoomNumber'] as int?,
       json['RoomStatus'] as int?,
       json['CleaningStatus'] as int?,
-    )
-      ..isMaintenance = json['MaintenanceStatus'] as int?
-      ..maintenanceNotes = json['MaintenanceNotes'] as String?;
+      json['MaintenanceStatus'] as int?,
+      json['Sleeps'] as int?,
+      json['Beds'] as int?,
+      json['Rooms'] as int?,
+    );
 
 Map<String, dynamic> _$RoomsToJson(Rooms instance) {
   final val = <String, dynamic>{};
@@ -48,8 +53,10 @@ Map<String, dynamic> _$RoomsToJson(Rooms instance) {
   writeNotNull('RoomId', instance.roomId);
   writeNotNull('RoomNumber', instance.roomNumber);
   writeNotNull('RoomStatus', instance.roomStatus);
-  writeNotNull('CleaningStatus', instance.isCleaning);
-  writeNotNull('MaintenanceStatus', instance.isMaintenance);
-  writeNotNull('MaintenanceNotes', instance.maintenanceNotes);
+  writeNotNull('CleaningStatus', instance.cleaningStatus);
+  writeNotNull('MaintenanceStatus', instance.maintenanceStatus);
+  writeNotNull('Sleeps', instance.sleeps);
+  writeNotNull('Beds', instance.beds);
+  writeNotNull('Rooms', instance.rooms);
   return val;
 }

@@ -1,7 +1,8 @@
+import 'dart:convert';
 import 'package:json_annotation/json_annotation.dart';
 part 'GetHotelRoomsResp.g.dart';
 
-//dart run build_runner build --delete-conflicting-outputs
+// dart run build_runner build --delete-conflicting-outputs
 
 @JsonSerializable(includeIfNull: false)
 class GetHotelRoomsResp {
@@ -36,13 +37,17 @@ class Rooms {
   @JsonKey(name: 'RoomStatus')
   int? roomStatus;
   @JsonKey(name: 'CleaningStatus')
-  int? isCleaning;
+  int? cleaningStatus;
   @JsonKey(name: 'MaintenanceStatus')
-  int? isMaintenance;
-  @JsonKey(name: 'MaintenanceNotes')
-  String? maintenanceNotes;
+  int? maintenanceStatus;
+  @JsonKey(name: 'Sleeps')
+  int? sleeps;
+  @JsonKey(name: 'Beds')
+  int? beds;
+  @JsonKey(name: 'Rooms')
+  int? rooms;
 
-  Rooms(this.roomId, this.roomNumber, this.roomStatus, this.isCleaning);
+  Rooms(this.roomId, this.roomNumber, this.roomStatus, this.cleaningStatus, this.maintenanceStatus, this.sleeps, this.beds, this.rooms);
 
   static List<Rooms> fromArray(List<dynamic> list) {
     List<Rooms> result = [];

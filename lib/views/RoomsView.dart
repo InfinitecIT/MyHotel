@@ -90,24 +90,56 @@ class _RoomsViewState extends State<RoomsView> {
                     children: [
                       Expanded(
                         child: Padding(
-                          padding: const EdgeInsets.all(14.0),
-                          child: Text(
-                            "Room ${Globals.rooms[index].roomNumber}",
-                            style: TextStyle(fontSize: 25),
+                          padding: const EdgeInsets.only(left: 10),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                "Room ${Globals.rooms[index].roomNumber}",
+                                style: TextStyle(fontSize: 25),
+                              ),
+                              Row(
+                                children: [
+                                  Icon(Icons.person),
+                                ],
+                              ),
+                            ],
                           ),
                         ),
                       ),
                       Padding(
-                        padding: const EdgeInsets.only(left: 5, right: 5), // Adjust the padding as needed
-                        child: Container(
-                          width: 15, // Adjust the width of the status bar as needed
-                          height: 65, // Optional: if you want the status bar shorter than the item
-                          decoration: BoxDecoration(
-                            color: Globals.rooms[index].roomStatus == 0 ? Colors.red : Colors.green,
-                            borderRadius: BorderRadius.circular(5), // Optional: if you want rounded corners for the status bar
-                          ),
-                        ),
-                      ),
+                          padding: const EdgeInsets.only(left: 5, right: 5), // Adjust the padding as needed
+                          child: Row(
+                            children: [
+                              Visibility(
+                                visible: Globals.rooms[index].cleaningStatus == 1,
+                                child: Icon(Icons.cleaning_services, color: Colors.orange),
+                              ),
+                              Visibility(
+                                visible: Globals.rooms[index].maintenanceStatus == 1,
+                                child: Padding(
+                                  padding: EdgeInsets.only(left: 5),
+                                  child: Icon(Icons.handyman, color: Colors.orange),
+                                ),
+                              ),
+                              Container(
+                                width: 10,
+                              ),
+                              Container(
+                                width: 15, // Adjust the width of the status bar as needed
+                                height: 65, // Optional: if you want the status bar shorter than the item
+                                decoration: BoxDecoration(
+                                  color: Globals.rooms[index].maintenanceStatus == 1
+                                      ? Colors.red
+                                      : Globals.rooms[index].roomStatus == 0
+                                          ? Colors.red
+                                          : Colors.green,
+                                  borderRadius: BorderRadius.circular(5), // Optional: if you want rounded corners for the status bar
+                                ),
+                              ),
+                            ],
+                          )),
                     ],
                   ),
                 ),

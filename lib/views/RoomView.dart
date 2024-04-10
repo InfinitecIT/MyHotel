@@ -3,9 +3,12 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:myhotel/models/UpdateCleaningStatusReq.dart';
 import 'package:myhotel/models/UpdateCleaningStatusResp.dart';
+import 'package:myhotel/models/UpdateMaintenanceNotesReq.dart';
+import 'package:myhotel/models/UpdateMaintenanceNotesResp.dart';
 import 'package:myhotel/models/UpdateMaintenanceStatusResp.dart';
 import 'package:myhotel/utils/Globals.dart';
 import 'package:myhotel/utils/http/HttpAPI.dart';
+import 'package:myhotel/views/CustomAlert.dart';
 import 'package:myhotel/views/RoomsView.dart';
 
 import '../models/UpdateMaintenanceStatusReq.dart';
@@ -32,6 +35,7 @@ class _RoomViewState extends State<RoomView> {
     setState(() {
       _isCleaningOn = Globals.rooms[widget.roomIndex].cleaningStatus ?? 0;
       _isMaintenanceOn = Globals.rooms[widget.roomIndex].maintenanceStatus ?? 0;
+      _notesController.text = Globals.rooms[widget.roomIndex].maintenanceNotes ?? "";
     });
   }
 
@@ -74,17 +78,20 @@ class _RoomViewState extends State<RoomView> {
 // Update Maintenace Notes ** TO BE FIXED!!
 // **************************************************************************
 
-  // updateMaintenanceNotes(String maintenanceNotes) async {
-  //   var jsonIn = UpdateMaintenanceStatusReq(Globals.rooms[widget.roomIndex].roomId, maintenanceNotes).toJson();
-  //   var request = await HttpAPI().postNOAUTH(jsonIn, "UpdateMaintenanceNotes");
-  //   var response = UpdateMaintenanceStatusResp.fromJson(request?.body);
-  //   if (response.success == 1) {
-  //     isMaintenanceNotes = maintenanceNotes;
-  //     setState(() {
-  //       log("Updated Maintenance Notes");
-  //     });
-  //   }
-  // }
+  updateMaintenanceNotes() async {
+    String maintenanceNotes = _notesController.text;
+    var jsonIn = UpdateMaintenanceNotesReq(Globals.rooms[widget.roomIndex].roomId, maintenanceNotes).toJson();
+    var request = await HttpAPI().postNOAUTH(jsonIn, "UpdateMaintenanceNotes");
+    var response = UpdateMaintenanceNotesResp.fromJson(request?.body);
+    if (response.success == 1) {
+      setState(
+        () {
+          log("Updated Maintenance Notes");
+          Globals.showToast("Updated Maintenance Notes");
+        },
+      );
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -256,7 +263,7 @@ class _RoomViewState extends State<RoomView> {
                                 alignment: Alignment.centerLeft,
                                 child: ElevatedButton(
                                   onPressed: () {
-                                    // Logic to update notes
+                                    updateMaintenanceNotes();
                                   },
                                   style: ElevatedButton.styleFrom(
                                     // foregroundColor: Colors.white,
@@ -284,7 +291,9 @@ class _RoomViewState extends State<RoomView> {
         color: const Color.fromARGB(255, 95, 157, 207), // Set the background color of the container
         padding: const EdgeInsets.all(8.0),
         child: ElevatedButton(
-          onPressed: () {},
+          onPressed: () {
+            Globals.openAlert(CustomAlert("Assign Guest", "Assign Guest", "Assign Guest"));
+          },
           style: ElevatedButton.styleFrom(
             minimumSize: Size(size.width - 16, 60), // Adjust the size as needed
             shape: RoundedRectangleBorder(

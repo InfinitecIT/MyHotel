@@ -40,6 +40,8 @@ class Rooms {
   int? cleaningStatus;
   @JsonKey(name: 'MaintenanceStatus')
   int? maintenanceStatus;
+  @JsonKey(name: 'MaintenanceNotes')
+  String? maintenanceNotes;
   @JsonKey(name: 'Sleeps')
   int? sleeps;
   @JsonKey(name: 'Beds')
@@ -47,7 +49,7 @@ class Rooms {
   @JsonKey(name: 'Rooms')
   int? rooms;
 
-  Rooms(this.roomId, this.roomNumber, this.roomStatus, this.cleaningStatus, this.maintenanceStatus, this.sleeps, this.beds, this.rooms);
+  Rooms(this.roomId, this.roomNumber, this.roomStatus, this.cleaningStatus, this.maintenanceStatus, this.maintenanceNotes, this.sleeps, this.beds, this.rooms);
 
   static List<Rooms> fromArray(List<dynamic> list) {
     List<Rooms> result = [];

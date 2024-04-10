@@ -63,7 +63,7 @@ class _RoomsViewState extends State<RoomsView> {
           ),
       body: Container(
         padding: EdgeInsets.all(5),
-        color: Color.fromARGB(255, 95, 157, 207),
+        color: Color(0xFF5F9DCF),
         height: size.height,
         width: size.width,
         child: ListView.builder(
@@ -99,10 +99,18 @@ class _RoomsViewState extends State<RoomsView> {
                                 "Room ${Globals.rooms[index].roomNumber}",
                                 style: TextStyle(fontSize: 25),
                               ),
-                              Row(
-                                children: [
-                                  Icon(Icons.person),
-                                ],
+                              Container(
+                                height: 20,
+                                width: size.width,
+                                child: ListView.builder(
+                                  padding: EdgeInsets.zero,
+                                  physics: NeverScrollableScrollPhysics(),
+                                  itemCount: Globals.rooms[index].sleeps,
+                                  scrollDirection: Axis.horizontal,
+                                  itemBuilder: (context, index) {
+                                    return Icon(Icons.person);
+                                  },
+                                ),
                               ),
                             ],
                           ),
@@ -130,11 +138,7 @@ class _RoomsViewState extends State<RoomsView> {
                                 width: 15, // Adjust the width of the status bar as needed
                                 height: 65, // Optional: if you want the status bar shorter than the item
                                 decoration: BoxDecoration(
-                                  color: Globals.rooms[index].maintenanceStatus == 1
-                                      ? Colors.red
-                                      : Globals.rooms[index].roomStatus == 0
-                                          ? Colors.red
-                                          : Colors.green,
+                                  color: Globals.rooms[index].maintenanceStatus == 1 ? Colors.red : Colors.green,
                                   borderRadius: BorderRadius.circular(5), // Optional: if you want rounded corners for the status bar
                                 ),
                               ),

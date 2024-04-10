@@ -6,6 +6,7 @@ import 'package:myhotel/models/UpdateCleaningStatusResp.dart';
 import 'package:myhotel/models/UpdateMaintenanceStatusResp.dart';
 import 'package:myhotel/utils/Globals.dart';
 import 'package:myhotel/utils/http/HttpAPI.dart';
+import 'package:myhotel/views/RoomsView.dart';
 
 import '../models/UpdateMaintenanceStatusReq.dart';
 
@@ -92,32 +93,42 @@ class _RoomViewState extends State<RoomView> {
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(70.0),
         child: Container(
-            decoration: BoxDecoration(
-              border: Border(
-                bottom: BorderSide(color: Colors.blue[800]!, width: 2),
-              ),
+          decoration: BoxDecoration(
+            border: Border(
+              bottom: BorderSide(color: Colors.blue[800]!, width: 2),
             ),
-            child: Row(
-              children: [
-                Align(
-                  alignment: Alignment.centerLeft,
-                  child: Padding(
-                    padding: const EdgeInsets.only(top: 10, left: 1, bottom: 1),
-                    child: Image.asset(
-                      "assets/Logo.png",
-                      height: 80,
-                    ),
+          ),
+          child: Row(
+            children: [
+              Align(
+                alignment: Alignment.centerLeft,
+                child: Padding(
+                  padding: const EdgeInsets.only(top: 10, left: 1, bottom: 1),
+                  child: Image.asset(
+                    "assets/Logo.png",
+                    height: 80,
                   ),
                 ),
-                Padding(
-                  padding: const EdgeInsets.only(top: 10, left: 5, bottom: 1),
-                  child: Text(
-                    "Room ${Globals.rooms[widget.roomIndex].roomNumber}", // Access roomIndex through widget
-                    style: const TextStyle(fontSize: 30),
-                  ),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(top: 10, left: 5, bottom: 1),
+                child: Text(
+                  "Room ${Globals.rooms[widget.roomIndex].roomNumber}", // Access roomIndex through widget
+                  style: const TextStyle(fontSize: 30),
                 ),
-              ],
-            )),
+              ),
+              Spacer(),
+              IconButton(
+                padding: const EdgeInsets.only(top: 10, right: 20, bottom: 1),
+                onPressed: () => Navigator.of(context).push(
+                  MaterialPageRoute(builder: (context) => RoomsView()),
+                ),
+                icon: Icon(Icons.chevron_left),
+                iconSize: 35,
+              )
+            ],
+          ),
+        ),
       ),
       body: Stack(
         // Use Stack to overlay the button over the SingleChildScrollView

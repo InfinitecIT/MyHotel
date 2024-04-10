@@ -148,19 +148,28 @@ class _RoomViewState extends State<RoomView> {
                     Container(
                       // New container for Room and Guest Details
                       padding: const EdgeInsets.all(10),
-                      margin: const EdgeInsets.only(bottom: 8),
+                      width: size.width,
+                      margin: const EdgeInsets.only(left: 8, right: 8, bottom: 8),
                       decoration: BoxDecoration(
                         color: Colors.white,
                         borderRadius: BorderRadius.circular(5),
                         border: Border.all(color: Colors.black, width: 1),
                       ),
                       child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
-                          Text('Room Details', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+                          Text('Room Details:', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
                           SizedBox(height: 8),
-                          Text('BEDS: ${Globals.rooms[widget.roomIndex].beds} | BEDROOMS: ${Globals.rooms[widget.roomIndex].rooms} | SLEEPS: ${Globals.rooms[widget.roomIndex].sleeps}',
-                              style: TextStyle(fontSize: 16)),
+                          Text(
+                            'BEDS: ${Globals.rooms[widget.roomIndex].beds} | BEDROOMS: ${Globals.rooms[widget.roomIndex].rooms} | SLEEPS: ${Globals.rooms[widget.roomIndex].sleeps}',
+                            style: TextStyle(fontSize: 16),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(top: 8),
+                            child: Text('Guest Details:', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+                          ),
+                          SizedBox(height: 8),
+
                           // Add more details as needed
                         ],
                       ),

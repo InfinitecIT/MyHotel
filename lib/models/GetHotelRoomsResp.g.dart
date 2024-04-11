@@ -40,7 +40,10 @@ Rooms _$RoomsFromJson(Map<String, dynamic> json) => Rooms(
       json['Sleeps'] as int?,
       json['Beds'] as int?,
       json['Rooms'] as int?,
-    );
+    )
+      ..guestName = json['GuestName'] as String?
+      ..checkInDate = json['CheckInDate'] as String?
+      ..checkoutDate = json['CheckoutDate'] as String?;
 
 Map<String, dynamic> _$RoomsToJson(Rooms instance) {
   final val = <String, dynamic>{};
@@ -57,6 +60,9 @@ Map<String, dynamic> _$RoomsToJson(Rooms instance) {
   writeNotNull('CleaningStatus', instance.cleaningStatus);
   writeNotNull('MaintenanceStatus', instance.maintenanceStatus);
   writeNotNull('MaintenanceNotes', instance.maintenanceNotes);
+  writeNotNull('GuestName', instance.guestName);
+  writeNotNull('CheckInDate', instance.checkInDate);
+  writeNotNull('CheckoutDate', instance.checkoutDate);
   writeNotNull('Sleeps', instance.sleeps);
   writeNotNull('Beds', instance.beds);
   writeNotNull('Rooms', instance.rooms);

@@ -1,7 +1,9 @@
 import 'package:calendar_date_picker2/calendar_date_picker2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:myhotel/models/CheckInGuestReq.dart';
 import 'package:myhotel/utils/Globals.dart';
+import 'package:myhotel/utils/http/HttpAPI.dart';
 import 'package:myhotel/views/CustomButton.dart';
 import 'package:myhotel/views/CustomTextField.dart';
 
@@ -22,6 +24,13 @@ class CustomAlert extends StatefulWidget {
 class _CustomAlertState extends State<CustomAlert> {
   TextEditingController nameController = TextEditingController();
   List<DateTime?> _dates = [];
+  assignGuest(){
+    var jsonIn = CheckInGuestReq(roomId, guestName, checkInDate, checkoutDate)
+    HttpAPI().postNOAUTH(jsonIn, method)
+
+  }
+
+
   @override
   Widget build(BuildContext context) {
     return Dialog(

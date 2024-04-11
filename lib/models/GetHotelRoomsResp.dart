@@ -42,6 +42,12 @@ class Rooms {
   int? maintenanceStatus;
   @JsonKey(name: 'MaintenanceNotes')
   String? maintenanceNotes;
+  @JsonKey(name: 'GuestName')
+  String? guestName;
+  @JsonKey(name: 'CheckInDate')
+  String? checkInDate;
+  @JsonKey(name: 'CheckoutDate')
+  String? checkoutDate;
   @JsonKey(name: 'Sleeps')
   int? sleeps;
   @JsonKey(name: 'Beds')

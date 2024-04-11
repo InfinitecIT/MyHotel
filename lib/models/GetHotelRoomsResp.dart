@@ -23,7 +23,8 @@ class GetHotelRoomsResp {
     return result;
   }
 
-  factory GetHotelRoomsResp.fromJson(Map<String, dynamic> json) => _$GetHotelRoomsRespFromJson(json);
+  factory GetHotelRoomsResp.fromJson(Map<String, dynamic> json) =>
+      _$GetHotelRoomsRespFromJson(json);
 
   Map<String, dynamic> toJson() => _$GetHotelRoomsRespToJson(this);
 }
@@ -45,9 +46,9 @@ class Rooms {
   @JsonKey(name: 'GuestName')
   String? guestName;
   @JsonKey(name: 'CheckInDate')
-  String? checkInDate;
+  int? checkInDate;
   @JsonKey(name: 'CheckoutDate')
-  String? checkoutDate;
+  int? checkoutDate;
   @JsonKey(name: 'Sleeps')
   int? sleeps;
   @JsonKey(name: 'Beds')
@@ -55,7 +56,16 @@ class Rooms {
   @JsonKey(name: 'Rooms')
   int? rooms;
 
-  Rooms(this.roomId, this.roomNumber, this.roomStatus, this.cleaningStatus, this.maintenanceStatus, this.maintenanceNotes, this.sleeps, this.beds, this.rooms);
+  Rooms(
+      this.roomId,
+      this.roomNumber,
+      this.roomStatus,
+      this.cleaningStatus,
+      this.maintenanceStatus,
+      this.maintenanceNotes,
+      this.sleeps,
+      this.beds,
+      this.rooms);
 
   static List<Rooms> fromArray(List<dynamic> list) {
     List<Rooms> result = [];

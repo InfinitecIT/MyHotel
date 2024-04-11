@@ -10,7 +10,7 @@ CheckInGuestReq _$CheckInGuestReqFromJson(Map<String, dynamic> json) =>
     CheckInGuestReq(
       json['RoomId'] as int?,
       json['GuestName'] as String?,
-      (json['CheckInDate'] as num?)?.toDouble(),
+      json['CheckInDate'] as int?,
       json['CheckoutDate'] as int?,
     );
 

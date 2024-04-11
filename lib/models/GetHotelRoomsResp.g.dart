@@ -42,8 +42,8 @@ Rooms _$RoomsFromJson(Map<String, dynamic> json) => Rooms(
       json['Rooms'] as int?,
     )
       ..guestName = json['GuestName'] as String?
-      ..checkInDate = json['CheckInDate'] as String?
-      ..checkoutDate = json['CheckoutDate'] as String?;
+      ..checkInDate = json['CheckInDate'] as int?
+      ..checkoutDate = json['CheckoutDate'] as int?;
 
 Map<String, dynamic> _$RoomsToJson(Rooms instance) {
   final val = <String, dynamic>{};

@@ -1,21 +1,15 @@
 import 'package:calendar_date_picker2/calendar_date_picker2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:myhotel/models/CheckInGuestReq.dart';
 import 'package:myhotel/utils/Globals.dart';
-import 'package:myhotel/utils/http/HttpAPI.dart';
 import 'package:myhotel/views/CustomButton.dart';
 import 'package:myhotel/views/CustomTextField.dart';
 
 class CustomAlert extends StatefulWidget {
   final String heading;
   final String text;
-  final String actionButtonText;
-  final LinearGradient? actionButtonGradient;
-  final double? alertHeight;
-  final Function()? actionButtonCallback;
-  final bool? showCancelButton;
-  CustomAlert(this.heading, this.text, this.actionButtonText, {this.actionButtonCallback, this.actionButtonGradient, this.alertHeight, this.showCancelButton, super.key});
+  final Function(String name, List<DateTime?> dates)? callback;
+  CustomAlert(this.heading, this.text, {this.callback, super.key});
 
   @override
   State<CustomAlert> createState() => _CustomAlertState();
@@ -24,12 +18,6 @@ class CustomAlert extends StatefulWidget {
 class _CustomAlertState extends State<CustomAlert> {
   TextEditingController nameController = TextEditingController();
   List<DateTime?> _dates = [];
-  assignGuest(){
-    var jsonIn = CheckInGuestReq(roomId, guestName, checkInDate, checkoutDate)
-    HttpAPI().postNOAUTH(jsonIn, method)
-
-  }
-
 
   @override
   Widget build(BuildContext context) {
@@ -39,7 +27,7 @@ class _CustomAlertState extends State<CustomAlert> {
       ),
       child: SingleChildScrollView(
         child: Container(
-          height: widget.alertHeight ?? 600,
+          height: 600,
           width: MediaQuery.of(context).size.width,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(15),
@@ -84,20 +72,18 @@ class _CustomAlertState extends State<CustomAlert> {
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     CustomButton(
-                      buttonText: widget.actionButtonText,
+                      buttonText: "Assign Guest",
                       isLoading: false,
-                      onPressed: () => widget.actionButtonCallback!(),
+                      onPressed: () =>
+                          widget.callback!(nameController.text, _dates),
                     ),
                     Container(height: 5),
-                    Visibility(
-                      visible: widget.showCancelButton ?? false,
-                      child: CustomButton(
-                        buttonText: 'Cancel',
-                        isLoading: false,
-                        onPressed: () => Globals.pop(),
-                        buttonTextColor: Colors.white,
-                      ),
-                    )
+                    CustomButton(
+                      buttonText: 'Cancel',
+                      isLoading: false,
+                      onPressed: () => Globals.pop(),
+                      buttonTextColor: Colors.white,
+                    ),
                   ],
                 ),
               ],

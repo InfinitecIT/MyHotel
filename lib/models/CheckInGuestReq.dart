@@ -1,4 +1,3 @@
-import 'dart:convert';
 import 'package:json_annotation/json_annotation.dart';
 part 'CheckInGuestReq.g.dart';
 
@@ -13,8 +12,7 @@ class CheckInGuestReq {
   @JsonKey(name: 'CheckoutDate')
   int? checkoutDate;
 
-  CheckInGuestReq(
-      this.roomId, this.guestName, this.checkInDate, this.checkoutDate);
+  CheckInGuestReq(this.roomId, this.guestName, this.checkInDate, this.checkoutDate);
 
   static List<CheckInGuestReq> fromArray(List<dynamic> list) {
     List<CheckInGuestReq> result = [];
@@ -24,8 +22,7 @@ class CheckInGuestReq {
     return result;
   }
 
-  factory CheckInGuestReq.fromJson(Map<String, dynamic> json) =>
-      _$CheckInGuestReqFromJson(json);
+  factory CheckInGuestReq.fromJson(Map<String, dynamic> json) => _$CheckInGuestReqFromJson(json);
 
   Map<String, dynamic> toJson() => _$CheckInGuestReqToJson(this);
 }

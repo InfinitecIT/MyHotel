@@ -1,4 +1,3 @@
-import 'dart:convert';
 import 'package:json_annotation/json_annotation.dart';
 part 'GetHotelRoomsResp.g.dart';
 
@@ -23,8 +22,7 @@ class GetHotelRoomsResp {
     return result;
   }
 
-  factory GetHotelRoomsResp.fromJson(Map<String, dynamic> json) =>
-      _$GetHotelRoomsRespFromJson(json);
+  factory GetHotelRoomsResp.fromJson(Map<String, dynamic> json) => _$GetHotelRoomsRespFromJson(json);
 
   Map<String, dynamic> toJson() => _$GetHotelRoomsRespToJson(this);
 }
@@ -56,16 +54,7 @@ class Rooms {
   @JsonKey(name: 'Rooms')
   int? rooms;
 
-  Rooms(
-      this.roomId,
-      this.roomNumber,
-      this.roomStatus,
-      this.cleaningStatus,
-      this.maintenanceStatus,
-      this.maintenanceNotes,
-      this.sleeps,
-      this.beds,
-      this.rooms);
+  Rooms(this.roomId, this.roomNumber, this.roomStatus, this.cleaningStatus, this.maintenanceStatus, this.maintenanceNotes, this.sleeps, this.beds, this.rooms);
 
   static List<Rooms> fromArray(List<dynamic> list) {
     List<Rooms> result = [];

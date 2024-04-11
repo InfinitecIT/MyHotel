@@ -74,16 +74,9 @@ class _CustomAlertState extends State<CustomAlert> {
                     CustomButton(
                       buttonText: "Assign Guest",
                       isLoading: false,
-                      onPressed: () =>
-                          widget.callback!(nameController.text, _dates),
+                      onPressed: () => widget.callback!(nameController.text, _dates),
                     ),
                     Container(height: 5),
-                    CustomButton(
-                      buttonText: 'Cancel',
-                      isLoading: false,
-                      onPressed: () => Globals.pop(),
-                      buttonTextColor: Colors.white,
-                    ),
                   ],
                 ),
               ],

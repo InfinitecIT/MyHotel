@@ -138,7 +138,11 @@ class _RoomsViewState extends State<RoomsView> {
                                 width: 15, // Adjust the width of the status bar as needed
                                 height: 65, // Optional: if you want the status bar shorter than the item
                                 decoration: BoxDecoration(
-                                  color: Globals.rooms[index].maintenanceStatus == 1 ? Colors.red : Colors.green,
+                                  color: Globals.rooms[index].guestName != null
+                                      ? Colors.red
+                                      : Globals.rooms[index].maintenanceStatus == 1
+                                          ? Colors.red
+                                          : Colors.green,
                                   borderRadius: BorderRadius.circular(5), // Optional: if you want rounded corners for the status bar
                                 ),
                               ),

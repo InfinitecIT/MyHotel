@@ -102,16 +102,33 @@ class _RoomsViewState extends State<RoomsView> {
                               Container(
                                 height: 20,
                                 width: size.width,
-                                child: ListView.builder(
-                                  padding: EdgeInsets.zero,
-                                  physics: NeverScrollableScrollPhysics(),
-                                  itemCount: Globals.rooms[index].sleeps,
-                                  scrollDirection: Axis.horizontal,
-                                  itemBuilder: (context, index) {
-                                    return Icon(Icons.person);
-                                  },
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  children: [
+                                    Icon(Icons.person), // Person icon
+                                    Text(" ${Globals.rooms[index].sleeps}"), // Number of sleeps next to the person icon
+                                    SizedBox(width: 10), // Spacing between the items
+                                    Icon(Icons.bed), // Bed icon
+                                    Text(" ${Globals.rooms[index].beds}"), // Number of beds next to the bed icon
+                                    SizedBox(width: 10), // Spacing between the items
+                                    Icon(Icons.meeting_room), // Room icon
+                                    Text(" ${Globals.rooms[index].rooms}"), // Number of rooms next to the room icon
+                                  ],
                                 ),
                               ),
+                              // Container(
+                              //   height: 20,
+                              //   width: size.width,
+                              //   child: ListView.builder(
+                              //     padding: EdgeInsets.zero,
+                              //     physics: NeverScrollableScrollPhysics(),
+                              //     itemCount: Globals.rooms[index].sleeps,
+                              //     scrollDirection: Axis.horizontal,
+                              //     itemBuilder: (context, index) {
+                              //       return Icon(Icons.person);
+                              //     },
+                              //   ),
+                              // ),
                             ],
                           ),
                         ),

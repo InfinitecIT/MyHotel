@@ -218,12 +218,57 @@ class _RoomViewState extends State<RoomView> {
                         children: [
                           Text('Room Details:', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
                           SizedBox(height: 8),
-                          Text(
-                            'BEDS: ${Globals.rooms[widget.roomIndex].beds} | BEDROOMS: ${Globals.rooms[widget.roomIndex].rooms} | SLEEPS: ${Globals.rooms[widget.roomIndex].sleeps}',
-                            style: TextStyle(fontSize: 16),
+
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly, // space the groups evenly
+                            mainAxisSize: MainAxisSize.max, // Makes Row takes up all available space
+                            children: [
+                              Row(
+                                mainAxisSize: MainAxisSize.min, // Use min to fit content
+                                children: [
+                                  Icon(Icons.person),
+                                  SizedBox(width: 4), // Adjust spacing between the icon and the text as needed
+                                  Text(
+                                    "Sleeps ${Globals.rooms[widget.roomIndex].sleeps}",
+                                    style: TextStyle(fontSize: 16),
+                                  ),
+                                ],
+                              ),
+                              Row(
+                                mainAxisSize: MainAxisSize.min, // Use min to fit content
+                                children: [
+                                  Icon(Icons.bed),
+                                  SizedBox(width: 4), // Adjust spacing between the icon and the text as needed
+                                  Text(
+                                    "Beds ${Globals.rooms[widget.roomIndex].beds}",
+                                    style: TextStyle(fontSize: 16),
+                                  ),
+                                ],
+                              ),
+                              Row(
+                                mainAxisSize: MainAxisSize.min, // Use min to fit content
+                                children: [
+                                  Icon(Icons.meeting_room),
+                                  SizedBox(width: 4), // Adjust spacing between the icon and the text as needed
+                                  Text(
+                                    "Rooms ${Globals.rooms[widget.roomIndex].rooms}",
+                                    style: TextStyle(fontSize: 16),
+                                  ),
+                                ],
+                              ),
+                            ],
                           ),
-                          Padding(
-                            padding: const EdgeInsets.only(top: 8),
+
+                          // Text(
+                          //   'BEDS: ${Globals.rooms[widget.roomIndex].beds} | BEDROOMS: ${Globals.rooms[widget.roomIndex].rooms} | SLEEPS: ${Globals.rooms[widget.roomIndex].sleeps}',
+                          //   style: TextStyle(fontSize: 16),
+                          // ),
+
+                          // Icon(Icons.person), // Person icon
+                          // Text(" ${Globals.rooms[index].sleeps}"),
+
+                          const Padding(
+                            padding: EdgeInsets.only(top: 8),
                             child: Text('Guest Details:', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
                           ),
                           SizedBox(height: 8),

@@ -218,7 +218,6 @@ class _RoomViewState extends State<RoomView> {
                         children: [
                           Text('Room Details:', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
                           SizedBox(height: 8),
-
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly, // space the groups evenly
                             mainAxisSize: MainAxisSize.max, // Makes Row takes up all available space
@@ -258,7 +257,6 @@ class _RoomViewState extends State<RoomView> {
                               ),
                             ],
                           ),
-
                           const Padding(
                             padding: EdgeInsets.only(top: 8),
                             child: Text('Guest Details:', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
@@ -267,12 +265,50 @@ class _RoomViewState extends State<RoomView> {
                           Globals.rooms[widget.roomIndex].guestName != null
                               ? Column(
                                   children: [
-                                    Text(
-                                      'NAME: ${Globals.rooms[widget.roomIndex].guestName} | CHECKIN: ${DateFormat('dd/MM/yyyy').format(DateTime.fromMillisecondsSinceEpoch(Globals.rooms[widget.roomIndex].checkInDate ?? 0))} | CHECKOUT: ${DateFormat('dd/MM/yyyy').format(DateTime.fromMillisecondsSinceEpoch(Globals.rooms[widget.roomIndex].checkoutDate ?? 0))}',
-                                      style: TextStyle(fontSize: 16),
+                                    Center(
+                                      // Optional: adjust padding as needed for aesthetics
+                                      child: IntrinsicWidth(
+                                        child: Column(
+                                          crossAxisAlignment: CrossAxisAlignment.start,
+                                          children: [
+                                            Row(
+                                              children: [
+                                                Icon(Icons.account_circle, size: 20), // Person icon for NAME
+                                                SizedBox(width: 8), // Spacing between icon and text
+                                                Text(
+                                                  'Customer Name: ${Globals.rooms[widget.roomIndex].guestName}',
+                                                  style: TextStyle(fontSize: 16),
+                                                ),
+                                              ],
+                                            ),
+                                            SizedBox(height: 4), // Spacing between rows
+                                            Row(
+                                              children: [
+                                                Icon(Icons.calendar_today, size: 20), // Calendar icon for CHECKIN
+                                                SizedBox(width: 8), // Spacing between icon and text
+                                                Text(
+                                                  'Checkin Date: ${DateFormat('dd/MM/yyyy').format(DateTime.fromMillisecondsSinceEpoch(Globals.rooms[widget.roomIndex].checkInDate ?? 0))}',
+                                                  style: TextStyle(fontSize: 16),
+                                                ),
+                                              ],
+                                            ),
+                                            SizedBox(height: 4), // Spacing between rows
+                                            Row(
+                                              children: [
+                                                Icon(Icons.calendar_today, size: 20), // Calendar icon for CHECKOUT
+                                                SizedBox(width: 8), // Spacing between icon and text
+                                                Text(
+                                                  'Checkout Date: ${DateFormat('dd/MM/yyyy').format(DateTime.fromMillisecondsSinceEpoch(Globals.rooms[widget.roomIndex].checkoutDate ?? 0))}',
+                                                  style: TextStyle(fontSize: 16),
+                                                ),
+                                              ],
+                                            ),
+                                          ],
+                                        ),
+                                      ),
                                     ),
                                     SizedBox(
-                                      height: 5,
+                                      height: 14,
                                     ),
                                     CustomButton(
                                       buttonText: "Checkout Guest",

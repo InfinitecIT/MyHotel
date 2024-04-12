@@ -257,6 +257,7 @@ class _RoomViewState extends State<RoomView> {
                               ),
                             ],
                           ),
+                          SizedBox(height: 8),
                           const Padding(
                             padding: EdgeInsets.only(top: 8),
                             child: Text('Guest Details:', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),

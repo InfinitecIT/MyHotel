@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:intl/intl.dart';
 import 'package:myhotel/models/CheckInGuestResp.dart';
 import 'package:myhotel/models/CheckOutGuestReq.dart';
@@ -399,6 +400,7 @@ class _RoomViewState extends State<RoomView> {
                             children: [
                               const Text('Cleaning', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
                               Switch(
+                                activeTrackColor: Color(0xFF1565C0),
                                 value: _isCleaningOn == 1,
                                 onChanged: (value) => updateRoomStatus(value),
                               ),
@@ -424,6 +426,7 @@ class _RoomViewState extends State<RoomView> {
                             children: [
                               const Text('Maintenance', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
                               Switch(
+                                activeTrackColor: const Color(0xFF1565C0),
                                 value: _isMaintenanceOn == 1,
                                 onChanged: (value) => updateMaintenanceStatus(value),
                               ),

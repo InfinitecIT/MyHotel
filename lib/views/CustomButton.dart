@@ -16,15 +16,14 @@ class CustomButton extends StatelessWidget {
     required this.buttonText,
     this.buttonTextColor = Colors.white, // Default color set to white
     this.buttonGradient = const LinearGradient(
-      colors: [Color(0xff4DDFFF), Color(0xff319CFF)],
+      colors: [Color(0xFF5F9DCF), Color(0xFF1565C0)],
     ),
     this.margin = const EdgeInsets.all(0), // Default margin to 0
     required this.onPressed,
-    this.borderColor = Colors.transparent, // Default border color
-    this.borderWidth = 2.0, // Default border width
+    this.borderColor = const Color(0xFF1565C0), // Default border color
+    this.borderWidth = 1.0, // Default border width
     this.borderRadius = 8.0, // Default border radius
-    this.icon =
-        const SizedBox(width: 0, height: 0), // Default icon as an empty space
+    this.icon = const SizedBox(width: 0, height: 0), // Default icon as an empty space
     this.isLoading = false, // Default loading state
     Key? key,
   }) : super(key: key);
@@ -50,18 +49,13 @@ class CustomButton extends StatelessWidget {
       child: Material(
         color: Colors.transparent,
         child: InkWell(
-          onTap: isLoading
-              ? null
-              : onPressed, // Disables onTap when isLoading is true
+          onTap: isLoading ? null : onPressed, // Disables onTap when isLoading is true
           child: Center(
             child: isLoading
                 ? SizedBox(
                     height: 25,
                     width: 25,
-                    child: CircularProgressIndicator(
-                        strokeWidth: 3.0,
-                        color:
-                            buttonTextColor), // Use button text color for consistency
+                    child: CircularProgressIndicator(strokeWidth: 3.0, color: buttonTextColor), // Use button text color for consistency
                   )
                 : Row(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -70,10 +64,7 @@ class CustomButton extends StatelessWidget {
                       const SizedBox(width: 8),
                       Text(
                         buttonText,
-                        style: TextStyle(
-                            color: buttonTextColor,
-                            fontWeight: FontWeight.w500,
-                            fontSize: 18),
+                        style: TextStyle(color: buttonTextColor, fontWeight: FontWeight.w500, fontSize: 18),
                       ),
                     ],
                   ),

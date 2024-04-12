@@ -153,7 +153,7 @@ class _RoomViewState extends State<RoomView> {
         child: Container(
           decoration: BoxDecoration(
             border: Border(
-              bottom: BorderSide(color: Colors.blue[800]!, width: 2),
+              bottom: BorderSide(color: Color(0xFF1565C0), width: 2),
             ),
           ),
           child: Row(
@@ -197,7 +197,7 @@ class _RoomViewState extends State<RoomView> {
               padding: const EdgeInsets.all(5),
               height: size.height, // Ensure the container fills the screen vertically
               width: size.width, // Ensure the container fills the screen horizontally
-              color: const Color.fromARGB(255, 95, 157, 207),
+              color: Color(0xFF5F9DCF),
               child: Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Column(
@@ -259,14 +259,6 @@ class _RoomViewState extends State<RoomView> {
                             ],
                           ),
 
-                          // Text(
-                          //   'BEDS: ${Globals.rooms[widget.roomIndex].beds} | BEDROOMS: ${Globals.rooms[widget.roomIndex].rooms} | SLEEPS: ${Globals.rooms[widget.roomIndex].sleeps}',
-                          //   style: TextStyle(fontSize: 16),
-                          // ),
-
-                          // Icon(Icons.person), // Person icon
-                          // Text(" ${Globals.rooms[index].sleeps}"),
-
                           const Padding(
                             padding: EdgeInsets.only(top: 8),
                             child: Text('Guest Details:', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
@@ -276,22 +268,79 @@ class _RoomViewState extends State<RoomView> {
                               ? Column(
                                   children: [
                                     Text(
-                                      'NAME: ${Globals.rooms[widget.roomIndex].guestName} | CHECKIN: ${DateFormat('dd/MM/yyyy').format(DateTime.fromMillisecondsSinceEpoch(Globals.rooms[widget.roomIndex].checkInDate ?? 0))} | CHECKOUT: ${DateFormat('dd/MM/yyyy').format(DateTime.fromMillisecondsSinceEpoch(Globals.rooms[widget.roomIndex].checkoutDate ?? 0))} ',
+                                      'NAME: ${Globals.rooms[widget.roomIndex].guestName} | CHECKIN: ${DateFormat('dd/MM/yyyy').format(DateTime.fromMillisecondsSinceEpoch(Globals.rooms[widget.roomIndex].checkInDate ?? 0))} | CHECKOUT: ${DateFormat('dd/MM/yyyy').format(DateTime.fromMillisecondsSinceEpoch(Globals.rooms[widget.roomIndex].checkoutDate ?? 0))}',
                                       style: TextStyle(fontSize: 16),
                                     ),
                                     SizedBox(
                                       height: 5,
                                     ),
                                     CustomButton(
-                                      buttonText: "Checkout",
+                                      buttonText: "Checkout Guest",
                                       onPressed: () => checkoutGuest(),
                                     )
                                   ],
                                 )
-                              : Text(
-                                  'No Guest. Check in to begin',
-                                  style: TextStyle(fontSize: 16),
-                                )
+                              : Column(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    Text(
+                                      'No Guest. Check in to begin',
+                                      style: TextStyle(fontSize: 16),
+                                    ),
+                                    SizedBox(height: 16), // Add some spacing before the button
+                                    CustomButton(
+                                      buttonText: "Assign Guest",
+                                      onPressed: () {
+                                        Globals.openAlert(
+                                          CustomAlert(
+                                            "Assign Guest",
+                                            "",
+                                            callback: (name, dates) => checkInGuest(name, dates),
+                                          ),
+                                        );
+                                      },
+                                      // Use full width of the container but subtract padding if necessary
+
+                                      borderColor: const Color(0xFF1565C0),
+                                      borderWidth: 1.0,
+                                      borderRadius: 8.0,
+                                      buttonTextColor: Colors.white,
+                                    ),
+                                  ],
+                                ),
+                          // Text(
+                          //   'BEDS: ${Globals.rooms[widget.roomIndex].beds} | BEDROOMS: ${Globals.rooms[widget.roomIndex].rooms} | SLEEPS: ${Globals.rooms[widget.roomIndex].sleeps}',
+                          //   style: TextStyle(fontSize: 16),
+                          // ),
+
+                          // Icon(Icons.person), // Person icon
+                          // Text(" ${Globals.rooms[index].sleeps}"),
+
+                          // const Padding(
+                          //   padding: EdgeInsets.only(top: 8),
+                          //   child: Text('Guest Details:', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+                          // ),
+                          // SizedBox(height: 8),
+                          // Globals.rooms[widget.roomIndex].guestName != null
+                          //     ? Column(
+                          //         children: [
+                          //           Text(
+                          //             'NAME: ${Globals.rooms[widget.roomIndex].guestName} | CHECKIN: ${DateFormat('dd/MM/yyyy').format(DateTime.fromMillisecondsSinceEpoch(Globals.rooms[widget.roomIndex].checkInDate ?? 0))} | CHECKOUT: ${DateFormat('dd/MM/yyyy').format(DateTime.fromMillisecondsSinceEpoch(Globals.rooms[widget.roomIndex].checkoutDate ?? 0))} ',
+                          //             style: TextStyle(fontSize: 16),
+                          //           ),
+                          //           SizedBox(
+                          //             height: 5,
+                          //           ),
+                          //           CustomButton(
+                          //             buttonText: "Checkout",
+                          //             onPressed: () => checkoutGuest(),
+                          //           )
+                          //         ],
+                          //       )
+                          //     : Text(
+                          //         'No Guest. Check in to begin',
+                          //         style: TextStyle(fontSize: 16),
+                          //       )
                           // Add more details as needed
                         ],
                       ),
@@ -311,7 +360,7 @@ class _RoomViewState extends State<RoomView> {
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              const Text('Cleaning'),
+                              const Text('Cleaning', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
                               Switch(
                                 value: _isCleaningOn == 1,
                                 onChanged: (value) => updateRoomStatus(value),
@@ -332,67 +381,71 @@ class _RoomViewState extends State<RoomView> {
                       ),
                       child: Padding(
                         padding: const EdgeInsets.all(10.0),
-                        child: Column(
-                          children: [
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                const Text('Maintenance'),
-                                Switch(
-                                  value: _isMaintenanceOn == 1,
-                                  onChanged: (value) => updateMaintenanceStatus(value),
+                        child: Column(children: [
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              const Text('Maintenance', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+                              Switch(
+                                value: _isMaintenanceOn == 1,
+                                onChanged: (value) => updateMaintenanceStatus(value),
+                              ),
+                            ],
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(top: 8.0),
+                            child: TextField(
+                              controller: _notesController,
+                              maxLines: 4,
+                              decoration: InputDecoration(
+                                hintText: 'Enter notes here...',
+                                hintStyle: const TextStyle(fontSize: 14),
+                                border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(5.0),
                                 ),
-                              ],
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.only(top: 8.0),
-                              child: TextField(
-                                controller: _notesController,
-                                maxLines: 4,
-                                decoration: InputDecoration(
-                                  hintText: 'Enter notes here...',
-                                  hintStyle: const TextStyle(fontSize: 14),
-                                  border: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(5.0),
-                                  ),
-                                  // Optionally reduce the TextField's border to match the container's style more closely
-                                  enabledBorder: OutlineInputBorder(
-                                    borderSide: const BorderSide(color: Colors.grey, width: 0.5),
-                                    borderRadius: BorderRadius.circular(5.0),
-                                  ),
-                                  focusedBorder: OutlineInputBorder(
-                                    borderSide: const BorderSide(color: Colors.blue, width: 1.5),
-                                    borderRadius: BorderRadius.circular(5.0),
-                                  ),
-                                  contentPadding: const EdgeInsets.only(left: 10, top: 10, bottom: 10),
+                                // Optionally reduce the TextField's border to match the container's style more closely
+                                enabledBorder: OutlineInputBorder(
+                                  borderSide: const BorderSide(color: Colors.grey, width: 0.5),
+                                  borderRadius: BorderRadius.circular(5.0),
                                 ),
+                                focusedBorder: OutlineInputBorder(
+                                  borderSide: const BorderSide(color: Colors.blue, width: 1.5),
+                                  borderRadius: BorderRadius.circular(5.0),
+                                ),
+                                contentPadding: const EdgeInsets.only(left: 10, top: 10, bottom: 10),
                               ),
                             ),
-                            const SizedBox(
-                              width: 8,
-                              height: 8,
-                            ), // Space between text field and button
-                            Padding(
-                              padding: const EdgeInsets.only(top: 8.0),
-                              child: Align(
-                                alignment: Alignment.centerLeft,
-                                child: ElevatedButton(
+                          ),
+                          const SizedBox(
+                            width: 8,
+                            height: 8,
+                          ), // Space between text field and button
+                          Padding(
+                            padding: const EdgeInsets.only(top: 8.0),
+                            child: Align(
+                              alignment: Alignment.centerLeft,
+                              child: SizedBox(
+                                width: 150,
+                                height: 50,
+                                child: CustomButton(
+                                  buttonText: "Update Notes",
                                   onPressed: () {
                                     updateMaintenanceNotes();
                                   },
-                                  style: ElevatedButton.styleFrom(
-                                    // foregroundColor: Colors.white,
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(10),
-                                    ),
-                                    // backgroundColor: Colors.blue, // Text color
+                                  buttonGradient: const LinearGradient(
+                                    colors: [Color(0xFF5F9DCF), Color(0xFF1565C0)],
                                   ),
-                                  child: const Text('Update Notes'),
+                                  borderColor: const Color(0xFF1565C0),
+                                  borderWidth: 1.0,
+                                  borderRadius: 8.0,
+                                  buttonTextColor: Colors.white,
+                                  icon: const SizedBox(width: 0, height: 0), // No icon
+                                  isLoading: false, // Not loading
                                 ),
                               ),
                             ),
-                          ],
-                        ),
+                          ),
+                        ]),
                       ),
                     ),
                   ],
@@ -402,28 +455,29 @@ class _RoomViewState extends State<RoomView> {
           ),
         ],
       ),
-      bottomNavigationBar: Container(
-        color: const Color.fromARGB(255, 95, 157, 207), // Set the background color of the container
-        padding: const EdgeInsets.all(8.0),
-        child: ElevatedButton(
-          onPressed: () {
-            Globals.openAlert(
-              CustomAlert(
-                "Assign Guest",
-                "",
-                callback: (name, dates) => checkInGuest(name, dates),
-              ),
-            );
-          },
-          style: ElevatedButton.styleFrom(
-            minimumSize: Size(size.width - 16, 60), // Adjust the size as needed
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(10),
-            ),
-          ),
-          child: const Text('Assign Guest'),
-        ),
-      ),
+      // bottomNavigationBar: Container(
+      //   color: const Color.fromARGB(255, 95, 157, 207), // Set the background color of the container
+      //   padding: const EdgeInsets.all(8.0),
+      //   child: CustomButton(
+      //     buttonText: "Assign Guest",
+      //     onPressed: () {
+      //       Globals.openAlert(
+      //         CustomAlert(
+      //           "Assign Guest",
+      //           "",
+      //           callback: (name, dates) => checkInGuest(name, dates),
+      //         ),
+      //       );
+      //     },
+      //     // style: ElevatedButton.styleFrom(
+      //     //   minimumSize: Size(size.width - 16, 60), // Adjust the size as needed
+      //     //   shape: RoundedRectangleBorder(
+      //     //     borderRadius: BorderRadius.circular(10),
+      //     //   ),
+      //     // ),
+      //     // child: const Text('Assign Guest'),
+      //   ),
+      // ),
     );
   }
 }
